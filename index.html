@@ -558,19 +558,17 @@ document
 
     .catch(function(error){
 
-        console.error("FAILED...", error);
+    console.error("EmailJS ERROR:", error);
 
-        alert(
-            "Sorry, your order could not be sent.\n\n" +
-            "Please try again."
-        );
+    alert(
+        "Email could not be sent.\n\n" +
+        "Error: " + (error.text || error.message || "Unknown error")
+    );
 
-        button.disabled = false;
+    button.disabled = false;
+    button.innerText = "Submit Order";
 
-        button.innerText =
-        "Submit Order";
-
-    });
+});
 
 });
 
