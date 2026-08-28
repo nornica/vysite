@@ -3,63 +3,143 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Academic Writing Order Form</title>
+
+<title>Place Your Order</title>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <style>
 body{
-font-family:Arial,sans-serif;
-background:#f4f4f4;
-margin:0;
-padding:20px;
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+    margin:0;
+    padding:20px;
 }
 
 .container{
-max-width:700px;
-margin:auto;
-background:#fff;
-padding:20px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,.2);
+    max-width:700px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 10px rgba(0,0,0,.2);
 }
 
-h2{
-text-align:center;
-color:#003366;
+h1{
+    text-align:center;
+    color:#003366;
 }
 
 label{
-display:block;
-margin-top:15px;
-font-weight:bold;
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
 }
 
-input, select, textarea{
-width:100%;
-padding:10px;
-margin-top:5px;
-border:1px solid #ccc;
-border-radius:5px;
-box-sizing:border-box;
-}
-
-textarea{
-height:120px;
+input,select,textarea{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    box-sizing:border-box;
 }
 
 button{
-width:100%;
-padding:12px;
-margin-top:20px;
-background:#28a745;
-color:#fff;
-border:none;
-border-radius:5px;
-font-size:18px;
-cursor:pointer;
+    margin-top:20px;
+    width:100%;
+    padding:15px;
+    background:#28a745;
+    color:#fff;
+    border:none;
+    border-radius:5px;
+    font-size:18px;
+    cursor:pointer;
 }
 
 button:hover{
-background:#218838;
+    background:#218838;
+}
+
+button:disabled{
+    background:#888;
+    cursor:not-allowed;
+}
+
+#price{
+    font-size:20px;
+    font-weight:bold;
+    color:#0055aa;
+    margin-top:15px;
+    text-align:center;
+}
+
+/* Contact section */
+
+.contact-info{
+    margin-top:40px;
+    padding-top:30px;
+    border-top:1px solid #ddd;
+}
+
+.contact-info > h3{
+    text-align:center;
+    font-size:28px;
+    color:#222;
+}
+
+.contact-intro{
+    text-align:center;
+    color:#666;
+    line-height:1.6;
+}
+
+.contact-details{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+    margin-top:25px;
+}
+
+.contact-box{
+    background:#f5f7fa;
+    padding:25px 15px;
+    border-radius:12px;
+    text-align:center;
+}
+
+.contact-box .icon{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.contact-box h3{
+    color:#222;
+}
+
+.contact-box p{
+    color:#666;
+    line-height:1.7;
+}
+
+.contact-box a{
+    color:#0066cc;
+    text-decoration:none;
+}
+
+.contact-box a:hover{
+    text-decoration:underline;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+    .contact-details{
+        grid-template-columns:1fr;
+    }
+
 }
 </style>
 
@@ -69,68 +149,432 @@ background:#218838;
 
 <div class="container">
 
-<h2>Academic Writing Order Form</h2>
+<h1>Place Order</h1>
 
-<form action="#" method="post" enctype="multipart/form-data">
+<form id="orderForm">
 
-<label>Full Name</label>
-<input type="text" name="fullname" required>
+<label for="name">Full Name</label>
+<input type="text" id="name" name="name" required>
 
-<label>Email Address</label>
-<input type="email" name="email" required>
+<label for="email">Email</label>
+<input type="email" id="email" name="email" required>
 
-<label>Phone Number</label>
-<input type="tel" name="phone">
+<label>Country</label>
 
-<label>Assignment Title</label>
-<input type="text" name="title" required>
+<select id="country" name="country" required>
 
-<label>Academic Level</label>
-<select name="level" required>
-<option>High School</option>
-<option>College</option>
-<option>Undergraduate</option>
-<option>Masters</option>
-<option>PhD</option>
+    <option value="">-- Select Your Country --</option>
+
+    <option value="Australia" data-code="+61">🇦🇺 Australia</option>
+    <option value="Bangladesh" data-code="+880">🇧🇩 Bangladesh</option>
+    <option value="Botswana" data-code="+267">🇧🇼 Botswana</option>
+    <option value="Canada" data-code="+1">🇨🇦 Canada</option>
+    <option value="Ethiopia" data-code="+251">🇪🇹 Ethiopia</option>
+    <option value="France" data-code="+33">🇫🇷 France</option>
+    <option value="Germany" data-code="+49">🇩🇪 Germany</option>
+    <option value="Ghana" data-code="+233">🇬🇭 Ghana</option>
+    <option value="India" data-code="+91">🇮🇳 India</option>
+    <option value="Ireland" data-code="+353">🇮🇪 Ireland</option>
+    <option value="Kenya" data-code="+254">🇰🇪 Kenya</option>
+    <option value="Malawi" data-code="+265">🇲🇼 Malawi</option>
+    <option value="Mozambique" data-code="+258">🇲🇿 Mozambique</option>
+    <option value="Namibia" data-code="+264">🇳🇦 Namibia</option>
+    <option value="Netherlands" data-code="+31">🇳🇱 Netherlands</option>
+    <option value="New Zealand" data-code="+64">🇳🇿 New Zealand</option>
+    <option value="Nigeria" data-code="+234">🇳🇬 Nigeria</option>
+    <option value="Pakistan" data-code="+92">🇵🇰 Pakistan</option>
+    <option value="Philippines" data-code="+63">🇵🇭 Philippines</option>
+    <option value="Rwanda" data-code="+250">🇷🇼 Rwanda</option>
+    <option value="South Africa" data-code="+27">🇿🇦 South Africa</option>
+    <option value="Tanzania" data-code="+255">🇹🇿 Tanzania</option>
+    <option value="Uganda" data-code="+256">🇺🇬 Uganda</option>
+    <option value="United Arab Emirates" data-code="+971">🇦🇪 United Arab Emirates</option>
+    <option value="United Kingdom" data-code="+44">🇬🇧 United Kingdom</option>
+    <option value="United States" data-code="+1">🇺🇸 United States</option>
+    <option value="Zambia" data-code="+260">🇿🇲 Zambia</option>
+    <option value="Zimbabwe" data-code="+263">🇿🇼 Zimbabwe</option>
+    <option value="Other" data-code="">🌍 Other</option>
+
 </select>
 
-<label>Subject</label>
-<input type="text" name="subject">
+<label>Phone / WhatsApp</label>
 
-<label>Number of Pages</label>
-<input type="number" name="pages">
+<div style="display:flex;gap:8px;">
 
-<label>Deadline</label>
-<input type="datetime-local" name="deadline">
+    <input
+        type="text"
+        id="countryCode"
+        name="countryCode"
+        readonly
+        placeholder="+Code"
+        style="width:90px;"
+    >
 
-<label>Referencing Style</label>
-<select name="style">
-<option>APA</option>
-<option>MLA</option>
-<option>Harvard</option>
-<option>Chicago</option>
-<option>IEEE</option>
+    <input
+        type="tel"
+        id="phone"
+        name="phone"
+        placeholder="Enter phone number"
+        required
+        style="flex:1;"
+    >
+
+</div>
+
+<label for="title">Paper Title</label>
+<input type="text" id="title" name="title" required>
+
+<label for="subject">Subject</label>
+<input type="text" id="subject" name="subject" required>
+
+<label for="level">Academic Level</label>
+
+<select id="level" name="level">
+
+    <option value="High School">High School</option>
+    <option value="College">College</option>
+    <option value="Undergraduate">Undergraduate</option>
+    <option value="Masters">Masters</option>
+    <option value="PhD">PhD</option>
+    <option value="None">None</option>
+
 </select>
 
-<label>Instructions</label>
-<textarea name="instructions"></textarea>
+<label for="pages">Number of Pages</label>
 
-<label>Upload Assignment Files</label>
-<input type="file" name="file">
+<input
+    type="number"
+    id="pages"
+    name="pages"
+    value="1"
+    min="1"
+>
 
-<label>Payment Method</label>
-<select name="payment">
-<option>M-Pesa</option>
-<option>PayPal</option>
-<option>Credit/Debit Card</option>
-<option>Bank Transfer</option>
+<div id="price">Total Price: $10</div>
+
+<label for="deadline">Deadline</label>
+<input type="date" id="deadline" name="deadline" required>
+
+<label for="instructions">Instructions</label>
+
+<textarea
+    id="instructions"
+    name="instructions"
+    rows="5"
+    placeholder="Enter your order instructions"
+></textarea>
+
+<label for="referencing">Referencing Style</label>
+
+<select id="referencing" name="referencing" required>
+
+    <option value="">-- Select Referencing Style --</option>
+
+    <option value="APA">APA</option>
+    <option value="MLA">MLA</option>
+    <option value="Chicago">Chicago</option>
+    <option value="Harvard">Harvard</option>
+    <option value="IEEE">IEEE</option>
+    <option value="Vancouver">Vancouver</option>
+    <option value="OSCOLA">OSCOLA</option>
+    <option value="Other">Other</option>
+
 </select>
 
-<button type="submit">Submit Order</button>
+<label for="file">Upload Files</label>
+
+<input
+    type="file"
+    id="file"
+    name="file"
+>
+
+<label for="paymentMethod">Payment Method</label>
+
+<select id="paymentMethod" name="paymentMethod" required>
+
+    <option value="PayPal">PayPal</option>
+    <option value="M-Pesa">M-Pesa</option>
+    <option value="Credit/Debit Card">Credit/Debit Card</option>
+
+</select>
+
+<button type="submit" id="submitButton">
+    Submit Order
+</button>
+
+
+<!-- CONTACT INFORMATION -->
+
+<div class="contact-info">
+
+<h3>Contact Information</h3>
+
+<p class="contact-intro">
+Have questions or need help with your academic writing order?
+Get in touch with us.
+</p>
+
+<div class="contact-details">
+
+<!-- Address -->
+
+<div class="contact-box">
+
+<div class="icon">📍</div>
+
+<h3>Our Address</h3>
+
+<p>
+Kapsabet, Kenya<br>
+P.O. Box 950-30300<br>
+Kapsabet, Kenya
+</p>
+
+</div>
+
+
+<!-- Phone -->
+
+<div class="contact-box">
+
+<div class="icon">📞</div>
+
+<h3>Phone</h3>
+
+<p>
+<a href="tel:+254706986818">
++254 706 986 818
+</a>
+</p>
+
+</div>
+
+
+<!-- Email -->
+
+<div class="contact-box">
+
+<div class="icon">✉️</div>
+
+<h3>Email</h3>
+
+<p>
+
+<a href="mailto:nornica521@gmail.com">
+nornica521@gmail.com
+</a>
+
+</p>
+
+</div>
+
+
+<!-- Working Hours -->
+
+<div class="contact-box">
+
+<div class="icon">🕒</div>
+
+<h3>Working Hours</h3>
+
+<p>
+
+<strong>Open 24/7</strong><br>
+Monday – Sunday<br>
+Available anytime
+
+</p>
+
+</div>
+
+</div>
+
+</div>
 
 </form>
 
 </div>
+
+
+<script>
+
+/* =========================
+   EMAILJS CONFIGURATION
+========================= */
+
+/*
+   Replace these three values
+   with your EmailJS details.
+*/
+
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+
+
+/* Initialize EmailJS */
+
+emailjs.init({
+    publicKey: EMAILJS_PUBLIC_KEY
+});
+
+
+/* =========================
+   COUNTRY PHONE CODE
+========================= */
+
+const country =
+document.getElementById("country");
+
+const countryCode =
+document.getElementById("countryCode");
+
+country.addEventListener("change", function(){
+
+    const selectedOption =
+    this.options[this.selectedIndex];
+
+    const code =
+    selectedOption.getAttribute("data-code");
+
+    countryCode.value = code || "";
+
+});
+
+
+/* =========================
+   PRICE CALCULATION
+========================= */
+
+const pages =
+document.getElementById("pages");
+
+const price =
+document.getElementById("price");
+
+pages.addEventListener("input", function(){
+
+    let total =
+    Number(pages.value) * 10;
+
+    price.innerHTML =
+    "Total Price: $" + total;
+
+});
+
+
+/* =========================
+   SUBMIT ORDER
+========================= */
+
+document
+.getElementById("orderForm")
+.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    const form = this;
+
+    const button =
+    document.getElementById("submitButton");
+
+    /* Calculate total */
+
+    const total =
+    Number(document.getElementById("pages").value) * 10;
+
+
+    /*
+       Add total price to a hidden
+       field so EmailJS receives it.
+    */
+
+    let totalInput =
+    document.getElementById("totalPrice");
+
+    if(!totalInput){
+
+        totalInput =
+        document.createElement("input");
+
+        totalInput.type = "hidden";
+
+        totalInput.id = "totalPrice";
+
+        totalInput.name = "totalPrice";
+
+        form.appendChild(totalInput);
+
+    }
+
+    totalInput.value =
+    "$" + total;
+
+
+    /* Prevent double submission */
+
+    button.disabled = true;
+
+    button.innerText =
+    "Sending Order...";
+
+
+    /*
+       Send the complete form
+       to your EmailJS template.
+    */
+
+    emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        form
+    )
+
+    .then(function(response){
+
+        console.log("SUCCESS!", response);
+
+        alert(
+            "Order submitted successfully!\n\n" +
+            "We have received your order and will contact you shortly."
+        );
+
+        form.reset();
+
+        countryCode.value = "";
+
+        price.innerHTML =
+        "Total Price: $10";
+
+        button.disabled = false;
+
+        button.innerText =
+        "Submit Order";
+
+    })
+
+    .catch(function(error){
+
+        console.error("FAILED...", error);
+
+        alert(
+            "Sorry, your order could not be sent.\n\n" +
+            "Please try again."
+        );
+
+        button.disabled = false;
+
+        button.innerText =
+        "Submit Order";
+
+    });
+
+});
+
+</script>
 
 </body>
 </html>
