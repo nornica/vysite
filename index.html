@@ -973,6 +973,52 @@ function botReply(message) {
 
 }
 
+/* =========================
+   PAYMENT INSTRUCTIONS
+========================= */
+
+const paymentMethod =
+document.getElementById("paymentMethod");
+
+const paymentText =
+document.getElementById("paymentText");
+
+paymentMethod.addEventListener("change", function(){
+
+    if(this.value === "PayPal"){
+
+        paymentText.innerHTML =
+        "💰 <strong>PayPal Payment</strong><br><br>" +
+        "Send your payment to our PayPal account:<br>" +
+        "<strong>YOUR-PAYPAL-EMAIL@example.com</strong><br><br>" +
+        "After payment, please keep your transaction confirmation.";
+
+    }
+
+    else if(this.value === "M-Pesa"){
+
+        paymentText.innerHTML =
+        "📱 <strong>M-Pesa Payment</strong><br><br>" +
+        "Send your payment to:<br>" +
+        "<strong>+254 7XX XXX XXX</strong><br><br>" +
+        "Account/Name: <strong>YOUR BUSINESS NAME</strong><br><br>" +
+        "After payment, please keep your M-Pesa confirmation message.";
+
+    }
+
+    else if(this.value === "Credit/Debit Card"){
+
+        paymentText.innerHTML =
+        "💳 <strong>Credit/Debit Card Payment</strong><br><br>" +
+        "Card payments are processed securely through our payment gateway." +
+        "<br><br>" +
+        "<a href=\"YOUR-PAYMENT-LINK\" target=\"_blank\">" +
+        "Click here to pay securely by card" +
+        "</a>";
+
+    }
+
+});
 </script>
 </body>
 </html>
